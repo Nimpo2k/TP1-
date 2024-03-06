@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Group {
 
     private Etudiant[] m_etudiants = new Etudiant[constantes.MAX_ELEVE];
@@ -42,10 +40,10 @@ public class Group {
     /*
    =======================================================
    méthode
-   =============================================================
+   =======================================================
    */
     public void ajouterEtudiant(Etudiant unEtudiant) {
-        if (m_nbrEtudiants < constantes.MAX_ELEVE) {
+        if (m_nbrEtudiants <= constantes.MAX_ELEVE) {
             m_etudiants[m_nbrEtudiants] = unEtudiant;
             m_nbrEtudiants++;
         }
@@ -55,8 +53,8 @@ public class Group {
         double sum = 0;
         for (Etudiant etudiant : m_etudiants) {
             // si l'objet n'est pas initez alors arrete toi
-            if (etudiant == null) break;
-            sum += etudiant.getNote();
+            if (etudiant != null)
+                sum += etudiant.getNote();
         }
 
         // retourne la moyenne du groupe
@@ -64,13 +62,10 @@ public class Group {
     }
 
     public double tauxSucces() {
-        int nbrEtudiantReussi = 0;f
+        int nbrEtudiantReussi = 0;
         for (Etudiant etudiant : m_etudiants) {
-            if (etudiant == null) break;
-
-            if (etudiant.isSucces()) {
+            if (etudiant != null && etudiant.isSucces())
                 ++nbrEtudiantReussi;
-            }
         }
         // retourne le  taux de succès du groupe
         return (double) nbrEtudiantReussi / m_nbrEtudiants;
@@ -79,11 +74,8 @@ public class Group {
     public double meilleur() {
         double tempNote = 0;
         for (Etudiant etudiant : m_etudiants) {
-            if (etudiant == null) break;
-
-            if (etudiant.getNote() >= tempNote) {
+            if (etudiant != null && etudiant.getNote() >= tempNote)
                 tempNote = etudiant.getNote();
-            }
         }
         return tempNote;
     }
@@ -98,8 +90,8 @@ public class Group {
         double sum = 0;
 
         for (Etudiant etudiant : m_etudiants) {
-            if (etudiant == null) break;
-            sum += Math.pow(etudiant.getNote() - moyenne, 2);
+            if (etudiant != null)
+                sum += Math.pow(etudiant.getNote() - moyenne, 2);
         }
 
         //  Calcul de la variance
@@ -110,49 +102,38 @@ public class Group {
         return Math.sqrt(variance());
     }
 
-    public String tostring()
+    public String toString()
     {
         StringBuilder sumOfString = new StringBuilder();
-        for (int i = 0; i < m_nbrEtudiants; i++) {
-            sumOfString.append(m_etudiants[i].toString());
+        for (Etudiant etudiant: m_etudiants) {
+            if (etudiant != null)
+                sumOfString.append(etudiant.toString());
         }
         return sumOfString.toString();
     }
 
     public static void main(String[] args) {
-        String nom = "belilita";
-        String prenom = "anas";
-        int codePermanent = 65734;
-        int anneeNaissance = 2004;
-        int note = 70;
 
-
+        Etudiant etudiant = new Etudiant("belilita", "anas", 65734, 2004, 90);
+        Etudiant etudiant2 = new Etudiant("yacine", "test", 89695, 2000, 10);
+        Etudiant etudiant3 = new Etudiant("amine", "test2", 65758, 2003, 10);
         Group grp = new Group(5000);
-
-        Etudiant etudiant = new Etudiant(nom, prenom, codePermanent, anneeNaissance, note);
-        Etudiant etudiant2 = new Etudiant("test", prenom, codePermanent, anneeNaissance, 90);
-        Etudiant etudiant3 = new Etudiant("test2", prenom, codePermanent, anneeNaissance, 40);
 
         grp.ajouterEtudiant(etudiant);
         grp.ajouterEtudiant(etudiant2);
         grp.ajouterEtudiant(etudiant3);
 
-        System.out.print("[moyenne()]\n");
-        System.out.printf("La moyenne du group est de %.2f\n\n", grp.moyenne());
+        // resultat
 
-        System.out.print("[tauxSucces()]\n");
-        System.out.printf("Le taux de succes dans ce groupe est de %.2f\n\n", grp.tauxSucces());
+        System.out.printf("[m_NbrGroupe] %d\n", grp.getNbrGroupe());
+        System.out.printf("[m_NbrGroupe] %d\n", grp.getNbrEtudiants());
+        System.out.printf("[m_etudiants] %s \n", grp.toString());
 
-        System.out.print("[meilleur()]\n");
-        System.out.printf("La meilleur note de cette class est de %.2f\n\n", grp.meilleur());
+        System.out.printf("[moyenne]   \nLa moyenne du group est de %.2f\n\n", grp.moyenne());
+        System.out.printf("[tauxSucces]\nLe taux de succes dans ce groupe est de %.2f\n\n", grp.tauxSucces());
+        System.out.printf("[meilleur]  \nLa meilleur note de cette class est de %.2f\n\n", grp.meilleur());
+        System.out.printf("[variance]  \nLa variance de ce groupe est de %.2f\n\n", grp.variance());
+        System.out.printf("[ecartType] \nL'ecrate type de ce groupe est de %.2f\n\n", grp.ecartType());
 
-        System.out.print("[variance()]\n");
-        System.out.printf("La variance de ce groupe est de %.2f\n\n", grp.variance());
-
-        System.out.print("[ecartType()]\n");
-        System.out.printf("L'ecrate type de ce groupe est de %.2f\n\n", grp.ecartType());
-
-        System.out.print("[tostring()]");
-        System.out.print(grp.tostring());
     }
 }

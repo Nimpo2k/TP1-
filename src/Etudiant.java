@@ -79,11 +79,10 @@ public class Etudiant {
         return  m_note >= 80 && m_note <= 100 ? 'A' :
                 m_note >= 60 && m_note <= 80  ? 'B' :
                 m_note >= 40 && m_note <= 60  ? 'C' : 'D';
-
     }
     public String toString()
     {
-        return String.format("\n\n[code] %d\n[nom] %s\n[prénom] %s\n[année] %d\n[note] %d\n\n",
+        return String.format("\n\n[code] %d\n[nom] %s\n[prénom] %s\n[année] %d\n[note] %d\n",
                 m_codePermanent,
                 m_nom,
                 m_prenom,
