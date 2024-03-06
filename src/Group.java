@@ -2,7 +2,7 @@ public class Group {
 
     private Etudiant[] m_etudiants = new Etudiant[constantes.MAX_ELEVE];
     private int m_NbrGroupe = 0;
-    private static int m_nbrEtudiants = 0;
+    private int m_nbrEtudiants = 0;
 
     /*
     =============================================================
