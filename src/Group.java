@@ -4,11 +4,9 @@ public class Group {
     private int m_NbrGroupe = 0;
     private int m_nbrEtudiants = 0;
 
-    /*
-    =============================================================
-    getter setter
-    =============================================================
-    */
+    /* =============================================================
+    *                        getter setter
+    * ============================================================== */
     Group(int NbrGroupe) {
         m_NbrGroupe = NbrGroupe;
     }
@@ -37,12 +35,11 @@ public class Group {
         this.m_etudiants = m_etudiants;
     }
 
-    /*
-   =======================================================
-   méthode
-   =======================================================
-   */
-    public void ajouterEtudiant(Etudiant unEtudiant) {
+    /* =============================================================
+    *                       méthode
+    * ============================================================== */
+    public void ajouterEtudiant(Etudiant unEtudiant)
+    {
         if (m_nbrEtudiants <= constantes.MAX_ELEVE) {
             m_etudiants[m_nbrEtudiants] = unEtudiant;
             m_nbrEtudiants++;
@@ -51,7 +48,8 @@ public class Group {
 
     public double moyenne() {
         double sum = 0;
-        for (Etudiant etudiant : m_etudiants) {
+        for (Etudiant etudiant : m_etudiants) 
+        {
             // si l'objet n'est pas initez alors arrete toi
             if (etudiant != null)
                 sum += etudiant.getNote();
@@ -63,7 +61,8 @@ public class Group {
 
     public double tauxSucces() {
         int nbrEtudiantReussi = 0;
-        for (Etudiant etudiant : m_etudiants) {
+        for (Etudiant etudiant : m_etudiants)
+        {
             if (etudiant != null && etudiant.isSucces())
                 ++nbrEtudiantReussi;
         }
@@ -73,7 +72,8 @@ public class Group {
 
     public double meilleur() {
         double tempNote = 0;
-        for (Etudiant etudiant : m_etudiants) {
+        for (Etudiant etudiant : m_etudiants)
+        {
             if (etudiant != null && etudiant.getNote() >= tempNote)
                 tempNote = etudiant.getNote();
         }
@@ -89,7 +89,8 @@ public class Group {
         double moyenne = moyenne();
         double sum = 0;
 
-        for (Etudiant etudiant : m_etudiants) {
+        for (Etudiant etudiant : m_etudiants)
+        {
             if (etudiant != null)
                 sum += Math.pow(etudiant.getNote() - moyenne, 2);
         }
@@ -105,7 +106,8 @@ public class Group {
     public String toString()
     {
         StringBuilder sumOfString = new StringBuilder();
-        for (Etudiant etudiant: m_etudiants) {
+        for (Etudiant etudiant: m_etudiants) 
+        {
             if (etudiant != null)
                 sumOfString.append(etudiant.toString());
         }
