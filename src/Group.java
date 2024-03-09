@@ -81,7 +81,7 @@ public class Group {
     }
 
     /*
-        L'équation mathématique utilisée pour déterminer l'écart-type et variance provient des sites suivant :
+        L'équation mathématique utilisée pour déterminer l'écart-type et la variance provient des sites suivant :
         - https://fr.khanacademy.org/math/be-4eme-secondaire2/x213a6fc6f6c9e122:statistiques/x213a6fc6f6c9e122:parametres-de-dispersion/a/calculating-standard-deviation-step-by-step#:~:text=Comment%20calculer%20l'%C3%A9cart%2Dtype&text=1%20%2D%20On%20calcule%20la%20moyenne,l'effectif%20de%20la%20s%C3%A9rie.
         - https://byjus.com/maths/difference-between-variance-and-standard-deviation
     */
