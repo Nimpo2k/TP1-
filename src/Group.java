@@ -40,7 +40,7 @@ public class Group {
     * ============================================================== */
     public void ajouterEtudiant(Etudiant unEtudiant)
     {
-        if (m_nbrEtudiants <= constantes.MAX_ELEVE) {
+        if (m_nbrEtudiants < constantes.MAX_ELEVE) {
             m_etudiants[m_nbrEtudiants] = unEtudiant;
             m_nbrEtudiants++;
         }
