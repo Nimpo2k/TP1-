@@ -1,3 +1,5 @@
+// Fait par mohammed Anas Belilita
+
 public class Group {
 
     private Etudiant[] m_etudiants = new Etudiant[constantes.MAX_ELEVE];
