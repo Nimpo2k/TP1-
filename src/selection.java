@@ -1,3 +1,4 @@
+  // selection.java --> ALi
 public enum selection {
     Inscrire,       // 0
     Lister,         // 1
