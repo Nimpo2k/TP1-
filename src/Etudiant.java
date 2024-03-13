@@ -1,3 +1,5 @@
+// Fait par mohammed Anas Belilita
+
 public class Etudiant {
     private String m_nom = "nom inconnue";
     private String m_prenom = "prénom inconnue";
@@ -9,9 +11,9 @@ public class Etudiant {
     {
         m_codePermanent  = codePermanent;
         m_anneeNaissance = anneeNaissance;
-        m_prenom = prenom;
-        m_nom    = nom;
-        m_note   = note;
+        setPrenom(prenom);
+        setnom(nom);
+        setNote(note);
     }
 
     Etudiant()
@@ -25,7 +27,9 @@ public class Etudiant {
     }
 
     public void setnom(String nom) {
-        m_nom = nom;
+        m_nom = contientUnNbr(nom) ? m_nom : nom;
+        if(m_nom.equals("nom inconnue"))
+            System.out.print("[ERROR] le nom ne doit pas contenir un nombre\n");
     }
 
     public String getprenom() {
@@ -33,7 +37,9 @@ public class Etudiant {
     }
 
     public void setPrenom(String prenom) {
-        m_prenom = prenom;
+        m_prenom = contientUnNbr(prenom) ? m_prenom : prenom;
+        if(m_prenom.equals("prénom inconnue"))
+            System.out.print("[ERROR] le prenom ne doit pas contenir un nombre\n");
     }
 
     public int getCodePermanent() {
@@ -65,7 +71,16 @@ public class Etudiant {
     /* =============================================================
     *                           méthode
     * ============================================================== */
-
+   
+    private boolean contientUnNbr(String phrase)
+    {
+        for (char caractere : phrase.toCharArray()) {
+            if (Character.isDigit(caractere)) 
+                return true;
+        }
+        return false;
+    }
+    
     public boolean isSucces()
     {
         int notePassage = 60;
