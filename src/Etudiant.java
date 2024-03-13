@@ -61,9 +61,11 @@ public class Etudiant {
     public int getNote() {
         return m_note;
     }
-
+    
     public void setNote(int note) {
-        m_note = note;
+        m_note = (note >= 0 && note <= 100) ? note : m_note;
+        if (m_note == 0)
+            System.out.print("[ERROR] la note doit etre entre 0 et 100!\n");
     }
 
 
