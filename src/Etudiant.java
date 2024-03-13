@@ -74,8 +74,7 @@ public class Etudiant {
     *                           méthode
     * ============================================================== */
    
-    private boolean contientUnNbr(String phrase)
-    {
+    private boolean contientUnNbr(String phrase) {
         for (char caractere : phrase.toCharArray()) {
             if (Character.isDigit(caractere)) 
                 return true;
@@ -83,27 +82,24 @@ public class Etudiant {
         return false;
     }
     
-    public boolean isSucces()
-    {
+    public boolean isSucces(){
         int notePassage = 60;
         return m_note >= notePassage;
     }
 
-    public char noteLitterale()
-    {
+    public char noteLitterale(){
         return  m_note >= 80 && m_note <= 100 ? 'A' :
                 m_note >= 60 && m_note <= 80  ? 'B' :
                 m_note >= 40 && m_note <= 60  ? 'C' : 'D';
     }
-    public String toString()
-    {
+    
+    public String toString(){
         return String.format("\n\n[code] %d\n[nom] %s\n[prénom] %s\n[année] %d\n[note] %d\n",
                 m_codePermanent,
                 m_nom,
                 m_prenom,
                 m_anneeNaissance,
-                m_note
-        );
+                m_note);
     }
 
    public static void main(String[] args) {
