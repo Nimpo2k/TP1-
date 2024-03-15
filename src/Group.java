@@ -26,15 +26,15 @@ public class Group {
     }
 
     public void setNbrGroupe(int nbrgroupe) {
-        this.m_NbrGroupe = nbrgroupe;
+        m_NbrGroupe = nbrgroupe;
     }
 
     public Etudiant[] getEtudiants() {
         return m_etudiants;
     }
 
-    public void setEtudiants(Etudiant[] m_etudiants) {
-        this.m_etudiants = m_etudiants;
+    public void setEtudiants(Etudiant[] etudiants) {
+        m_etudiants = etudiants;
     }
 
     /* =============================================================
@@ -116,6 +116,10 @@ public class Group {
         return sumOfString.toString();
     }
 
+    /* =============================================================
+     *                       Point de test
+     * ============================================================== */
+
     public static void main(String[] args) {
 
         Etudiant etudiant = new Etudiant("belilita", "anas", 2004, 90);
@@ -126,8 +130,6 @@ public class Group {
         grp.ajouterEtudiant(etudiant);
         grp.ajouterEtudiant(etudiant2);
         grp.ajouterEtudiant(etudiant3);
-
-        // resultat
 
         System.out.printf("[m_NbrGroupe] %d\n", grp.getNbrGroupe());
         System.out.printf("[m_NbrGroupe] %d\n", grp.getNbrEtudiants());
