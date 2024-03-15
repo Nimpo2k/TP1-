@@ -9,33 +9,19 @@ public class Group {
     /* =============================================================
     *                        getter setter
     * ============================================================== */
-    Group(int NbrGroupe) {
-        m_NbrGroupe = NbrGroupe;
-    }
+    Group(int NbrGroupe) { m_NbrGroupe = NbrGroupe; }
 
-    public int getNbrEtudiants() {
-        return m_nbrEtudiants;
-    }
+    public int getNbrEtudiants() { return m_nbrEtudiants; }
 
-    public void setNbrEtudiants(int nbrEtudiants) {
-        m_nbrEtudiants = nbrEtudiants;
-    }
+    public void setNbrEtudiants(int nbrEtudiants) { m_nbrEtudiants = nbrEtudiants; }
 
-    public int getNbrGroupe() {
-        return m_NbrGroupe;
-    }
+    public int getNbrGroupe() { return m_NbrGroupe; }
 
-    public void setNbrGroupe(int nbrgroupe) {
-        m_NbrGroupe = nbrgroupe;
-    }
+    public void setNbrGroupe(int nbrgroupe) { m_NbrGroupe = nbrgroupe; }
 
-    public Etudiant[] getEtudiants() {
-        return m_etudiants;
-    }
+    public Etudiant[] getEtudiants() { return m_etudiants; }
 
-    public void setEtudiants(Etudiant[] etudiants) {
-        m_etudiants = etudiants;
-    }
+    public void setEtudiants(Etudiant[] etudiants) { m_etudiants = etudiants; }
 
     /* =============================================================
     *                       méthode
