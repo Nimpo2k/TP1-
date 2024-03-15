@@ -9,11 +9,8 @@ public class Etudiant {
 
     Etudiant(String nom, String prenom, int anneeNaissance, int note)
     {
-        String codeNom = nom.substring(0, 1).toUpperCase();
-        String codePrenom = prenom.substring(0, 1).toUpperCase();
-        String codeAnnee = String.valueOf(anneeNaissance).substring(0, 4);
-        m_codePermanent  = codeNom + codePrenom +codeAnnee;
-        m_anneeNaissance = anneeNaissance;
+        setCodePermanent(nom, prenom, anneeNaissance);
+        setAnneeNaissance(anneeNaissance);
         setPrenom(prenom);
         setnom(nom);
         setNote(note);
@@ -21,6 +18,7 @@ public class Etudiant {
 
     Etudiant()
     {}
+
 
     /* =============================================================
     *                        getter setter
@@ -45,11 +43,17 @@ public class Etudiant {
             System.out.print("[ERROR] le prenom ne doit pas contenir un nombre\n");
     }
 
+    public void setCodePermanent(String nom, String prenom, int anneeNaissance) {
+        char codeNom     = getFirstCharacter(nom);
+        char codePrenom  = getFirstCharacter(prenom);
+        String codeAnnee = integerToString(anneeNaissance);
+
+        m_codePermanent = String.valueOf(codeNom) + String.valueOf(codePrenom) + codeAnnee;
+    }
+
     public String getCodePermanent() {
         return m_codePermanent;
     }
-
-    public void setCodePermanent(String codePermanent) { m_codePermanent = codePermanent; }
 
     public int getAnneeNaissance() {
         return m_anneeNaissance;
@@ -74,7 +78,16 @@ public class Etudiant {
     /* =============================================================
     *                           méthode
     * ============================================================== */
-   
+
+    public char getFirstCharacter(String word) {
+        char character = word.charAt(0);
+        return Character.toUpperCase(character);
+    }
+
+    public String integerToString(int number) {
+        return Integer.toString(number);
+    }
+
     private boolean contientUnNbr(String phrase) {
         for (char caractere : phrase.toCharArray()) {
             if (Character.isDigit(caractere)) 
@@ -83,16 +96,6 @@ public class Etudiant {
         return false;
     }
 
-    private int genererCodePermanent(String nom, String prenom, int anneeNaissance) {
-        int code = 0;
-        if (!nom.isEmpty() && !prenom.isEmpty()) {
-            code += Character.toUpperCase(nom.charAt(0));
-            code += Character.toUpperCase(prenom.charAt(0));
-        }
-        code += anneeNaissance;
-        return code;
-    }
-    
     public boolean isSucces(){
         int notePassage = 60;
         return m_note >= notePassage;
@@ -112,6 +115,10 @@ public class Etudiant {
                 m_anneeNaissance,
                 m_note);
     }
+
+    /* =============================================================
+     *                       Point de test
+     * ============================================================== */
 
    public static void main(String[] args) {
         String nom = "belilita";
