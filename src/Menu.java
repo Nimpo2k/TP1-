@@ -1,17 +1,16 @@
 import java.util.Scanner;               // Menu.java --> ALi
 import java.util.function.Function;
 
-public class menu {
+public class Menu {
     public static <T> T entree(String phrase, Function<String, T> convertisseur) {
         System.out.print(phrase);
         Scanner lect = new Scanner(System.in);
-        return convertisseur.apply(lect.next());
+        return convertisseur.apply(lect.nextLine());
     }
 
     public static void main(String[] args) {
 
         Group grp = new Group(6776);
-        Etudiant etudiant;
 
         selection slct;
         int choix;
@@ -32,12 +31,11 @@ public class menu {
                 slct = selection.values()[choix - 1];
                 switch (slct) {
                     case Inscrire: {
-                        etudiant = new Etudiant();
+                        Etudiant etudiant = new Etudiant();
                         // entree les information de l'eleve
                         etudiant.setnom(entree("Donnez moi le nom de l'eleve: ", Function.identity()));
                         etudiant.setPrenom(entree("Donner moi le prénom de l'eleve : " , Function.identity()));
                         etudiant.setAnneeNaissance(entree("Donner l'année de naissance de l'éleve: ",Integer::valueOf));
-                        etudiant.setCodePermanent(entree("Donner le code permanent: ",Integer::valueOf));
                         etudiant.setNote(entree("Donner la note de l'éleve: ",Integer::valueOf));
 
                         grp.ajouterEtudiant(etudiant);
@@ -67,6 +65,3 @@ public class menu {
         }
     }
 }
-
-
-

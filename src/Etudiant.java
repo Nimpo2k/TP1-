@@ -3,13 +3,16 @@
 public class Etudiant {
     private String m_nom = "nom inconnue";
     private String m_prenom = "prénom inconnue";
-    private int m_codePermanent = 0;
+    private String m_codePermanent = "";
     private int m_anneeNaissance = 0;
     private int m_note = 0;
 
-    Etudiant(String nom, String prenom, int codePermanent, int anneeNaissance, int note)
+    Etudiant(String nom, String prenom, int anneeNaissance, int note)
     {
-        m_codePermanent  = codePermanent;
+        String codeNom = nom.substring(0, 1).toUpperCase();
+        String codePrenom = prenom.substring(0, 1).toUpperCase();
+        String codeAnnee = String.valueOf(anneeNaissance).substring(0, 4);
+        m_codePermanent  = codeNom + codePrenom +codeAnnee;
         m_anneeNaissance = anneeNaissance;
         setPrenom(prenom);
         setnom(nom);
@@ -42,13 +45,11 @@ public class Etudiant {
             System.out.print("[ERROR] le prenom ne doit pas contenir un nombre\n");
     }
 
-    public int getCodePermanent() {
+    public String getCodePermanent() {
         return m_codePermanent;
     }
 
-    public void setCodePermanent(int codePermanent) {
-        m_codePermanent = codePermanent;
-    }
+    public void setCodePermanent(String codePermanent) { m_codePermanent = codePermanent; }
 
     public int getAnneeNaissance() {
         return m_anneeNaissance;
@@ -81,6 +82,16 @@ public class Etudiant {
         }
         return false;
     }
+
+    private int genererCodePermanent(String nom, String prenom, int anneeNaissance) {
+        int code = 0;
+        if (!nom.isEmpty() && !prenom.isEmpty()) {
+            code += Character.toUpperCase(nom.charAt(0));
+            code += Character.toUpperCase(prenom.charAt(0));
+        }
+        code += anneeNaissance;
+        return code;
+    }
     
     public boolean isSucces(){
         int notePassage = 60;
@@ -94,7 +105,7 @@ public class Etudiant {
     }
     
     public String toString(){
-        return String.format("\n\n[code] %d\n[nom] %s\n[prénom] %s\n[année] %d\n[note] %d\n",
+        return String.format("\n\n[code] %s\n[nom] %s\n[prénom] %s\n[année] %d\n[note] %d\n",
                 m_codePermanent,
                 m_nom,
                 m_prenom,
@@ -105,12 +116,12 @@ public class Etudiant {
    public static void main(String[] args) {
         String nom = "belilita";
         String prenom = "anas";
-        int codePermanent = 65734;
         int anneeNaissance = 2004;
         int note = 45;
 
-       Etudiant etudiant = new Etudiant(nom, prenom, codePermanent, anneeNaissance, note);
+       Etudiant etudiant = new Etudiant(nom, prenom, anneeNaissance, note);
 
+       System.out.printf("[Code Permanent] %s\n", etudiant.getCodePermanent());
        System.out.printf("[isSucces] %s\n", etudiant.isSucces());
        System.out.printf("[noteLitterale] %s\n", etudiant.noteLitterale());
        System.out.printf(etudiant.toString());

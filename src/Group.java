@@ -118,10 +118,10 @@ public class Group {
 
     public static void main(String[] args) {
 
-        Etudiant etudiant = new Etudiant("belilita", "anas", 65734, 2004, 90);
-        Etudiant etudiant2 = new Etudiant("yacine", "test", 89695, 2000, 10);
-        Etudiant etudiant3 = new Etudiant("amine", "test2", 65758, 2003, 10);
-        Group grp = new Group(5000);
+        Etudiant etudiant = new Etudiant("belilita", "anas", 2004, 90);
+        Etudiant etudiant2 = new Etudiant("yacine", "test", 2000, 10);
+        Etudiant etudiant3 = new Etudiant("amine", "test2", 2003, 10);
+        Group grp = new Group(3);
 
         grp.ajouterEtudiant(etudiant);
         grp.ajouterEtudiant(etudiant2);
