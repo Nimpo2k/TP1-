@@ -3,6 +3,9 @@
 import java.util.Scanner;
 import java.util.function.Function;
 
+import java.util.Scanner;
+import java.util.function.Function;
+
 public class Etudiant {
     private String m_nom = "nom inconnue";
     private String m_prenom = "prénom inconnue";
