@@ -1,4 +1,7 @@
 // Fait par mohammed Anas Belilita
+//Bonus 1 et tests/bugs fait par Riad
+import java.util.Scanner;
+import java.util.function.Function;
 
 public class Etudiant {
     private String m_nom = "nom inconnue";
@@ -9,18 +12,16 @@ public class Etudiant {
 
     Etudiant(String nom, String prenom, int anneeNaissance, int note)
     {
-        String codeNom = nom.substring(0, 1).toUpperCase();
-        String codePrenom = prenom.substring(0, 1).toUpperCase();
-        String codeAnnee = String.valueOf(anneeNaissance).substring(0, 4);
-        m_codePermanent  = codeNom + codePrenom +codeAnnee;
-        m_anneeNaissance = anneeNaissance;
         setPrenom(prenom);
         setnom(nom);
         setNote(note);
+        setCodePermanent(nom, prenom, anneeNaissance);
+        setAnneeNaissance(anneeNaissance);
     }
 
     Etudiant()
     {}
+
 
     /* =============================================================
     *                        getter setter
@@ -30,9 +31,12 @@ public class Etudiant {
     }
 
     public void setnom(String nom) {
-        m_nom = contientUnNbr(nom) ? m_nom : nom;
-        if(m_nom.equals("nom inconnue"))
+        while(contientUnNbr(nom))
+        {
             System.out.print("[ERROR] le nom ne doit pas contenir un nombre\n");
+            m_nom = nom = entree("Donner le nom de l'eleve : ", Function.identity());
+         }
+        m_nom = nom;
     }
 
     public String getprenom() {
@@ -40,33 +44,43 @@ public class Etudiant {
     }
 
     public void setPrenom(String prenom) {
-        m_prenom = contientUnNbr(prenom) ? m_prenom : prenom;
-        if(m_prenom.equals("prénom inconnue"))
+        while(contientUnNbr(prenom))
+        {
             System.out.print("[ERROR] le prenom ne doit pas contenir un nombre\n");
+            m_prenom = prenom = entree("Donner le prenom de l'eleve : ", Function.identity());
+        }
+        m_prenom = prenom;
     }
 
-    public String getCodePermanent() {
-        return m_codePermanent;
+
+    public void setCodePermanent(String nom, String prenom, int anneeNaissance) {
+        char codeNom     = getFirstCharacter(nom);
+        char codePrenom  = getFirstCharacter(prenom);
+        String codeAnnee = integerToString(anneeNaissance);
+
+        m_codePermanent = String.valueOf(codeNom) + String.valueOf(codePrenom) + codeAnnee;
     }
 
-    public void setCodePermanent(String codePermanent) { m_codePermanent = codePermanent; }
+    public String getCodePermanent() { return m_codePermanent; }
 
-    public int getAnneeNaissance() {
-        return m_anneeNaissance;
-    }
+    public int getAnneeNaissance() { return m_anneeNaissance; }
 
-    public void setAnneeNaissance(int anneeNaissance) {
-        m_anneeNaissance = anneeNaissance;
-    }
+    public void setAnneeNaissance(int anneeNaissance) { m_anneeNaissance = anneeNaissance; }
 
-    public int getNote() {
-        return m_note;
-    }
+    public int getNote() { return m_note; }
     
+
     public void setNote(int note) {
-        m_note = (note >= 0 && note <= 100) ? note : m_note;
-        if (m_note == 0)
-            System.out.print("[ERROR] la note doit etre entre 0 et 100!\n");
+        while(noteValide(note))
+        {
+            System.out.print("[ERROR] le note ne doit pas contenir un nombre\n");
+            m_note = note = entree("Donner le note de l'eleve : ", Integer::valueOf);
+        }
+        m_note = note;
+    }
+
+    private boolean noteValide(int note) {
+        return note < 0 || note > 100;
     }
 
 
@@ -74,7 +88,20 @@ public class Etudiant {
     /* =============================================================
     *                           méthode
     * ============================================================== */
-   
+    private static <T> T entree(String phrase, Function<String, T> convertisseur) {
+        System.out.print(phrase);
+        Scanner lect = new Scanner(System.in);
+        return convertisseur.apply(lect.nextLine());
+    }
+    public char getFirstCharacter(String word) {
+        char character = word.charAt(0);
+        return Character.toUpperCase(character);
+    }
+
+    public String integerToString(int number) {
+        return Integer.toString(number);
+    }
+
     private boolean contientUnNbr(String phrase) {
         for (char caractere : phrase.toCharArray()) {
             if (Character.isDigit(caractere)) 
@@ -83,16 +110,6 @@ public class Etudiant {
         return false;
     }
 
-    private int genererCodePermanent(String nom, String prenom, int anneeNaissance) {
-        int code = 0;
-        if (!nom.isEmpty() && !prenom.isEmpty()) {
-            code += Character.toUpperCase(nom.charAt(0));
-            code += Character.toUpperCase(prenom.charAt(0));
-        }
-        code += anneeNaissance;
-        return code;
-    }
-    
     public boolean isSucces(){
         int notePassage = 60;
         return m_note >= notePassage;
@@ -113,11 +130,15 @@ public class Etudiant {
                 m_note);
     }
 
+    /* =============================================================
+     *                       Point de test
+     * ============================================================== */
+
    public static void main(String[] args) {
         String nom = "belilita";
         String prenom = "anas";
         int anneeNaissance = 2004;
-        int note = 45;
+        int note = 56;
 
        Etudiant etudiant = new Etudiant(nom, prenom, anneeNaissance, note);
 

@@ -1,5 +1,5 @@
 // Fait par mohammed Anas Belilita
-
+//Bonus 1 et tests/bugs fait par Riad
 public class Group {
 
     private Etudiant[] m_etudiants = new Etudiant[constantes.MAX_ELEVE];
@@ -9,33 +9,19 @@ public class Group {
     /* =============================================================
     *                        getter setter
     * ============================================================== */
-    Group(int NbrGroupe) {
-        m_NbrGroupe = NbrGroupe;
-    }
+    Group(int NbrGroupe) { m_NbrGroupe = NbrGroupe; }
 
-    public int getNbrEtudiants() {
-        return m_nbrEtudiants;
-    }
+    public int getNbrEtudiants() { return m_nbrEtudiants; }
 
-    public void setNbrEtudiants(int nbrEtudiants) {
-        m_nbrEtudiants = nbrEtudiants;
-    }
+    public void setNbrEtudiants(int nbrEtudiants) { m_nbrEtudiants = nbrEtudiants; }
 
-    public int getNbrGroupe() {
-        return m_NbrGroupe;
-    }
+    public int getNbrGroupe() { return m_NbrGroupe; }
 
-    public void setNbrGroupe(int nbrgroupe) {
-        this.m_NbrGroupe = nbrgroupe;
-    }
+    public void setNbrGroupe(int nbrgroupe) { m_NbrGroupe = nbrgroupe; }
 
-    public Etudiant[] getEtudiants() {
-        return m_etudiants;
-    }
+    public Etudiant[] getEtudiants() { return m_etudiants; }
 
-    public void setEtudiants(Etudiant[] m_etudiants) {
-        this.m_etudiants = m_etudiants;
-    }
+    public void setEtudiants(Etudiant[] etudiants) { m_etudiants = etudiants; }
 
     /* =============================================================
     *                       méthode
@@ -116,6 +102,10 @@ public class Group {
         return sumOfString.toString();
     }
 
+    /* =============================================================
+     *                       Point de test
+     * ============================================================== */
+
     public static void main(String[] args) {
 
         Etudiant etudiant = new Etudiant("belilita", "anas", 2004, 90);
@@ -126,8 +116,6 @@ public class Group {
         grp.ajouterEtudiant(etudiant);
         grp.ajouterEtudiant(etudiant2);
         grp.ajouterEtudiant(etudiant3);
-
-        // resultat
 
         System.out.printf("[m_NbrGroupe] %d\n", grp.getNbrGroupe());
         System.out.printf("[m_NbrGroupe] %d\n", grp.getNbrEtudiants());
