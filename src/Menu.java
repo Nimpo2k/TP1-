@@ -1,15 +1,9 @@
-import java.util.Scanner;               // Menu.java --> ALi
 import java.util.function.Function;
 
-public class Menu {
+public class Menu extends Entree {
     /* =============================================================
      *                       méthode
      * ============================================================== */
-    private static <T> T entree(String phrase, Function<String, T> convertisseur) {
-        System.out.print(phrase);
-        Scanner lect = new Scanner(System.in);
-        return convertisseur.apply(lect.nextLine());
-    }
     public static void afficherMenu() {
         System.out.print("\n\n------MENU------\n\n");
         System.out.print("1. Inscrire\n");
@@ -18,7 +12,7 @@ public class Menu {
         System.out.print("4.Quitter\n");
     }
 
-    public static selection saisirChoixUtilisateur() {
+    public static selection saisirChoixUtilisateurSelection() {
         int choix = entree("choix: ", Integer::valueOf);
 
         while (!ChoixValide(choix)) {
@@ -27,6 +21,17 @@ public class Menu {
         }
 
         return selection.values()[choix - 1];
+    }
+
+    public static typeEtudiant saisirChoixUtilisateurTypeEtudiant() {
+        int choix = entree("choix: ", Integer::valueOf);
+
+        while (!ChoixValide(choix)) {
+            System.out.print("[ERREUR] Votre selection n'est pas bonne. Veuillez entrer un nombre entre 1 et 4.\n");
+            choix = entree("choix: ", Integer::valueOf);
+        }
+
+        return typeEtudiant.values()[choix - 1];
     }
 
     private static boolean ChoixValide(int choix) {
@@ -57,13 +62,45 @@ public class Menu {
 
     private static void InscrireEtudiant(Group grp)
     {
-        Etudiant etudiant = new Etudiant(
-                entree("Donnez le nom de l'eleve: ", Function.identity()),
-                entree("Donner le prénom de l'eleve : " , Function.identity()),
-                entree("Donner l'année de naissance de l'éleve: ", Integer::valueOf),
-                entree("Donner la note de l'éleve: ", Integer::valueOf)
-        );
-        grp.ajouterEtudiant(etudiant);
+        typeEtudiant choixEtudiant = saisirChoixUtilisateurTypeEtudiant();
+        Etudiant etudiant;
+        switch (choixEtudiant)
+        {
+            case ordinaire ->
+            {
+                etudiant = new Etudiant(
+                        entree("Donnez le nom de l'élève: ", Function.identity()),
+                        entree("Donner le prénom de l'élève : " , Function.identity()),
+                        entree("Donner l'année de naissance de l'élève: ", Integer::valueOf),
+                        entree("Donner la note de l'élève ", Integer::valueOf)
+                );
+                grp.ajouterEtudiant(etudiant);
+            }
+            case adaptation ->
+            {
+                etudiant = new EtudiantAdaptation(
+                        entree("Donnez le nom de l'élève: ", Function.identity()),
+                        entree("Donner le prénom de l'élève : " , Function.identity()),
+                        entree("Donner l'historique des incidents de l'élève : " , Function.identity()),
+                        entree("Donnez la coteS de l'élève: ", Integer::valueOf),
+                        entree("Donner l'année de naissance de l'élève: ", Integer::valueOf),
+                        entree("Donner la note de l'élève ", Integer::valueOf)
+                );
+                grp.ajouterEtudiant(etudiant);
+            }
+            case difficulter ->
+            {
+                etudiant = new EtudiantDifficulte(
+                        entree("Donnez le nom de l'élève: ", Function.identity()),
+                        entree("Donner le prénom de l'élève : " , Function.identity()),
+                        entree("Donner le tpe de touble que l'élève a causer : " , Function.identity()),
+                        entree("Donnez la coteS de l'élève: ", Integer::valueOf),
+                        entree("Donner l'année de naissance de l'élève: ", Integer::valueOf),
+                        entree("Donner la note de l'élève ", Integer::valueOf)
+                );
+                grp.ajouterEtudiant(etudiant);
+            }
+        }
     }
 
     private static void afficherStatistique(Group grp)
@@ -85,7 +122,7 @@ public class Menu {
 
         while (isAlive) {
             afficherMenu();
-            isAlive = traiterChoixUtilisateur(saisirChoixUtilisateur(), grp);
+            isAlive = traiterChoixUtilisateur(saisirChoixUtilisateurSelection(), grp);
         }
 
     }
