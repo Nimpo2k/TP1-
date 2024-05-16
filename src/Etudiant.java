@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.function.Function;
 
 public class Etudiant implements Facture {
+
     protected String nom = "nom inconnue";
     protected String prenom = "prénom inconnue";
     protected String codePermanent = "";
@@ -18,7 +19,9 @@ public class Etudiant implements Facture {
         setNote(note);
         setCodePermanent(nom, prenom, anneeNaissance);
         setAnneeNaissance(anneeNaissance);
+        facturer();
     }
+
     //le code permanent, le nom et le prénom par des valeurs fournies en paramètre
     Etudiant(String nom, String prenom, String codePermanent)
     {
@@ -26,24 +29,22 @@ public class Etudiant implements Facture {
         setnom(nom);
         this.codePermanent = codePermanent;
     }
-    Etudiant()
-    {}
 
+    Etudiant() {}
 
-    /* =============================================================
-    *                        getter setter
-    * ============================================================== */
-    public String getnom() {
-        return this.nom;
-    }
+    /* =============================================================  *
+     *                        getter setter                           *
+     * ============================================================== */
 
     public void setnom(String nom) {
-        while(contientUnNbr(nom))
-        {
-            System.out.print("[ERROR] le nom ne doit pas contenir un nombre\n");
-            this.nom = nom = entree("Donner le nom de l'eleve : ", Function.identity());
-         }
-        this.nom = nom;
+        try {
+            if (contientUnNbr(nom))
+                throw new IllegalAccessException("le nom ne doit pas contenir un nombre");
+
+            this.nom = nom;
+        } catch (IllegalAccessException e) {
+            System.out.printf("[Error] %s\n",e.getMessage());
+        }
     }
 
     public String getprenom() {
@@ -51,14 +52,15 @@ public class Etudiant implements Facture {
     }
 
     public void setPrenom(String prenom) {
-        while(contientUnNbr(prenom))
-        {
-            System.out.print("[ERROR] le prenom ne doit pas contenir un nombre\n");
-            this.prenom = prenom = entree("Donner le prenom de l'eleve : ", Function.identity());
-        }
-        this.prenom = prenom;
-    }
+        try {
+            if (contientUnNbr(prenom))
+                throw new IllegalAccessException("le prenom ne doit pas contenir un nombre");
 
+            this.prenom = prenom;
+        } catch (IllegalAccessException e) {
+            System.out.printf("[Error] %s\n",e.getMessage());
+        }
+    }
 
     public void setCodePermanent(String nom, String prenom, int anneeNaissance) {
         char codeNom     = getFirstCharacter(nom);
@@ -68,33 +70,28 @@ public class Etudiant implements Facture {
         this.codePermanent = String.valueOf(codeNom) + String.valueOf(codePrenom) + codeAnnee;
     }
 
-    public String getCodePermanent() { return this.codePermanent; }
-
-    public int getAnneeNaissance() { return this.anneeNaissance; }
-
-    public void setAnneeNaissance(int anneeNaissance) { this.anneeNaissance = anneeNaissance; }
-
-    public int getNote() { return this.note; }
-    
-
     public void setNote(int note) {
-        while(noteValide(note))
-        {
-            System.out.print("[ERROR] le note ne doit pas contenir un nombre\n");
-            this.note = note = entree("Donner le note de l'eleve : ", Integer::valueOf);
+        try {
+            if (note < 0 || note > 100)
+                throw new IllegalAccessException("note doit etre entre l'interval [0,100]");
+
+            this.note = note;
+
+        } catch (IllegalAccessException e) {
+            System.out.printf("[Error]  %s", e.getMessage());
         }
-        this.note = note;
     }
 
-    private boolean noteValide(int note) {
-        return note < 0 || note > 100;
+    public String getCodePermanent() { return this.codePermanent; }
+    public void setAnneeNaissance(int anneeNaissance) { this.anneeNaissance = anneeNaissance; }
+    public int getNote() { return this.note; }
+    public String getnom() {
+        return this.nom;
     }
 
-
-
-    /* =============================================================
-    *                           méthode
-    * ============================================================== */
+    /* ============================================================= *
+     *                           méthode                             *
+     * ============================================================= */
     private static <T> T entree(String phrase, Function<String, T> convertisseur) {
         System.out.print(phrase);
         Scanner lect = new Scanner(System.in);

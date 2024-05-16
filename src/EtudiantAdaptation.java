@@ -12,6 +12,7 @@ public class EtudiantAdaptation extends Etudiant implements Facture
 
         setHistoriqueDesIncidents(HistoriqueDesIncidents);
         setCoteS(coteS);
+        facturer();
     }
 
     /* ============================================================== *
@@ -37,6 +38,8 @@ public class EtudiantAdaptation extends Etudiant implements Facture
             this.coteS = coteS;
         } catch (IllegalAccessException e) { System.out.printf("Error:  %s", e.getMessage()); }
     }
+
+    public int getMontant() { return this.montant; }
 
     /* ============================================================== *
      *                          Méthode                               *
@@ -68,9 +71,11 @@ public class EtudiantAdaptation extends Etudiant implements Facture
         final int anneeNaissance = 2004;
         final int note = 56;
 
-        EtudiantAdaptation test =  new EtudiantAdaptation(nom ,prenom , HistoriqueDesIncidents, coteS, anneeNaissance, note);
+        EtudiantAdaptation etudiantAdaptation =  new EtudiantAdaptation(nom ,prenom , HistoriqueDesIncidents, coteS, anneeNaissance, note);
 
-        System.out.printf("[]");
+        System.out.printf("%s", etudiantAdaptation);
+        System.out.printf("[isSucce] %s",etudiantAdaptation.isSucces() ? "true\n" : "false\n");
+        System.out.printf("[montant] %d\n", etudiantAdaptation.getMontant());
     }
 
 

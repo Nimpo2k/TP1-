@@ -29,35 +29,58 @@ public class Group {
     // j ai resoue ce probleme a la vavite stp utilise generic
     public void ajouterEtudiant(Etudiant unEtudiant)
     {
-        if (this.nbrEtudiants < constantes.MAX_ELEVE) {
+        try{
+            if(this.nbrEtudiants > constantes.MAX_ELEVE)
+                throw new IllegalAccessException("vous avez atteint le maximum d'eleve");
+
             this.etudiantsRegulier[this.nbrEtudiants] = unEtudiant;
             this.nbrEtudiants++;
+        } catch (IllegalAccessException e){
+            System.out.printf("[Erreur] %s\n", e.getMessage());
         }
     }
 
     public double moyenne() {
-        double sum = 0;
-
-        for (Etudiant etudiant : this.etudiantsRegulier)
+        try
         {
-            // si l'objet n'est pas initez alors arrete toi
-            if (etudiant != null)
-                sum += etudiant.getNote();
-        }
+            double sum = 0;
 
-        // retourne la moyenne du groupe
-        return sum / this.nbrEtudiants;
+            for (Etudiant etudiant : this.etudiantsRegulier)
+            {
+                // si l'objet n'est pas initez alors arrete toi
+                if (etudiant != null)
+                    sum += etudiant.getNote();
+            }
+
+            if (this.nbrEtudiants <= 0)
+                throw new IllegalAccessException("le nombre d'etudiant doit etre plus grand que 0");
+
+            // retourne la moyenne du groupe
+            return sum / this.nbrEtudiants;
+        }catch (IllegalAccessException e) {
+            System.out.printf("[Erreur] %s\n", e.getMessage());
+        }
+        return 0;
     }
 
     public double tauxSucces() {
-        int nbrEtudiantReussi = 0;
-        for (Etudiant etudiant : this.etudiantsRegulier)
-        {
-            if (etudiant != null && etudiant.isSucces())
-                ++nbrEtudiantReussi;
+        try{
+            int nbrEtudiantReussi = 0;
+            for (Etudiant etudiant : this.etudiantsRegulier)
+            {
+                if (etudiant != null && etudiant.isSucces())
+                    ++nbrEtudiantReussi;
+            }
+
+            if (nbrEtudiantReussi <= 0)
+                throw new IllegalAccessException("le nombre d'etudiant reussi doit etre plus grand que 0");
+
+            // retourne le  taux de succès du groupe
+            return (double) nbrEtudiantReussi / this.nbrEtudiants;
+        } catch(IllegalAccessException e) {
+            System.out.printf("[Erreur] %s\n", e.getMessage());
         }
-        // retourne le  taux de succès du groupe
-        return (double) nbrEtudiantReussi / this.nbrEtudiants;
+        return 0;
     }
 
     public double meilleur() {
@@ -76,17 +99,25 @@ public class Group {
         - https://byjus.com/maths/difference-between-variance-and-standard-deviation
     */
     public double variance() {
-        double moyenne = moyenne();
-        double sum = 0;
+        try{
+            double moyenne = moyenne();
+            double sum = 0;
 
-        for (Etudiant etudiant : this.etudiantsRegulier)
-        {
-            if (etudiant != null)
-                sum += Math.pow(etudiant.getNote() - moyenne, 2);
+            for (Etudiant etudiant : this.etudiantsRegulier)
+            {
+                if (etudiant != null)
+                    sum += Math.pow(etudiant.getNote() - moyenne, 2);
+            }
+
+            if (this.nbrEtudiants <= 0)
+                throw new IllegalAccessException("le nombre d'etudiant doit etre plus grand que 0");
+
+            //  Calcul de la variance
+            return sum / this.nbrEtudiants;
+        } catch (IllegalAccessException e) {
+            System.out.printf("[Erreur] %s\n", e.getMessage());
         }
-
-        //  Calcul de la variance
-        return sum / this.nbrEtudiants;
+        return 0;
     }
 
     public double ecartType() {

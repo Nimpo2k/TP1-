@@ -12,6 +12,7 @@ public class EtudiantDifficulte  extends Etudiant implements Facture
 
         setTypeDeTrouble(typeDeTrouble);
         setCoteT(coteT);
+        facturer();
     }
 
     /* ============================================================== *
@@ -36,6 +37,11 @@ public class EtudiantDifficulte  extends Etudiant implements Facture
 
             this.coteT = coteT;
         } catch (IllegalAccessException e) { System.out.printf("Error:  %s", e.getMessage()); }
+    }
+
+    public int getMontant()
+    {
+        return this.montant;
     }
     /* ============================================================== *
      *                          Méthode                               *
@@ -68,8 +74,11 @@ public class EtudiantDifficulte  extends Etudiant implements Facture
         final int anneeNaissance = 2004;
         final int note = 56;
 
-        EtudiantDifficulte test = new EtudiantDifficulte(nom ,prenom , typeDeTrouble, coteT, anneeNaissance, note);
+        EtudiantDifficulte etudiantDifficulte = new EtudiantDifficulte(nom ,prenom , typeDeTrouble, coteT, anneeNaissance, note);
 
+        System.out.printf("%s", etudiantDifficulte);
+        System.out.printf("[isSucce] %s",etudiantDifficulte.isSucces() ? "true\n" : "false\n");
+        System.out.printf("[montant] %d\n", etudiantDifficulte.getMontant());
     }
 
 
