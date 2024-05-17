@@ -3,12 +3,14 @@
 import java.util.Scanner;
 import java.util.function.Function;
 
-public class Etudiant {
-    private String m_nom = "nom inconnue";
-    private String m_prenom = "prénom inconnue";
-    private String m_codePermanent = "";
-    private int m_anneeNaissance = 0;
-    private int m_note = 0;
+public class Etudiant implements Facture {
+
+    protected String nom = "nom inconnue";
+    protected String prenom = "prénom inconnue";
+    protected String codePermanent = "";
+    protected int anneeNaissance = 0;
+    protected int note = 0;
+    private int montant = 0;
 
     Etudiant(String nom, String prenom, int anneeNaissance, int note)
     {
@@ -17,77 +19,79 @@ public class Etudiant {
         setNote(note);
         setCodePermanent(nom, prenom, anneeNaissance);
         setAnneeNaissance(anneeNaissance);
+        facturer();
     }
 
-    Etudiant()
-    {}
-
-
-    /* =============================================================
-    *                        getter setter
-    * ============================================================== */
-    public String getnom() {
-        return m_nom;
+    //le code permanent, le nom et le prénom par des valeurs fournies en paramètre
+    Etudiant(String nom, String prenom, String codePermanent)
+    {
+        setPrenom(prenom);
+        setnom(nom);
+        this.codePermanent = codePermanent;
     }
+
+    Etudiant() {}
+
+    /* =============================================================  *
+     *                        getter setter                           *
+     * ============================================================== */
 
     public void setnom(String nom) {
-        while(contientUnNbr(nom))
-        {
-            System.out.print("[ERROR] le nom ne doit pas contenir un nombre\n");
-            m_nom = nom = entree("Donner le nom de l'eleve : ", Function.identity());
-         }
-        m_nom = nom;
+        try {
+            if (contientUnNbr(nom))
+                throw new IllegalAccessException("le nom ne doit pas contenir un nombre");
+
+            this.nom = nom;
+        } catch (IllegalAccessException e) {
+            System.out.printf("[Error] %s\n",e.getMessage());
+        }
     }
 
     public String getprenom() {
-        return m_prenom;
+        return this.prenom;
     }
 
     public void setPrenom(String prenom) {
-        while(contientUnNbr(prenom))
-        {
-            System.out.print("[ERROR] le prenom ne doit pas contenir un nombre\n");
-            m_prenom = prenom = entree("Donner le prenom de l'eleve : ", Function.identity());
-        }
-        m_prenom = prenom;
-    }
+        try {
+            if (contientUnNbr(prenom))
+                throw new IllegalAccessException("le prenom ne doit pas contenir un nombre");
 
+            this.prenom = prenom;
+        } catch (IllegalAccessException e) {
+            System.out.printf("[Error] %s\n",e.getMessage());
+        }
+    }
 
     public void setCodePermanent(String nom, String prenom, int anneeNaissance) {
         char codeNom     = getFirstCharacter(nom);
         char codePrenom  = getFirstCharacter(prenom);
         String codeAnnee = integerToString(anneeNaissance);
 
-        m_codePermanent = String.valueOf(codeNom) + String.valueOf(codePrenom) + codeAnnee;
+        this.codePermanent = String.valueOf(codeNom) + String.valueOf(codePrenom) + codeAnnee;
     }
-
-    public String getCodePermanent() { return m_codePermanent; }
-
-    public int getAnneeNaissance() { return m_anneeNaissance; }
-
-    public void setAnneeNaissance(int anneeNaissance) { m_anneeNaissance = anneeNaissance; }
-
-    public int getNote() { return m_note; }
-    
 
     public void setNote(int note) {
-        while(noteValide(note))
-        {
-            System.out.print("[ERROR] le note ne doit pas contenir un nombre\n");
-            m_note = note = entree("Donner le note de l'eleve : ", Integer::valueOf);
+        try {
+            if (note < 0 || note > 100)
+                throw new IllegalAccessException("note doit etre entre l'interval [0,100]");
+
+            this.note = note;
+
+        } catch (IllegalAccessException e) {
+            System.out.printf("[Error]  %s", e.getMessage());
         }
-        m_note = note;
     }
 
-    private boolean noteValide(int note) {
-        return note < 0 || note > 100;
+    public String getCodePermanent() { return this.codePermanent; }
+    public void setAnneeNaissance(int anneeNaissance) { this.anneeNaissance = anneeNaissance; }
+    public int getNote() { return this.note; }
+    public String getnom() {
+        return this.nom;
     }
 
-
-
-    /* =============================================================
-    *                           méthode
-    * ============================================================== */
+    /* ============================================================= *
+     *                           méthode                             *
+     * ============================================================= */
     private static <T> T entree(String phrase, Function<String, T> convertisseur) {
         System.out.print(phrase);
         Scanner lect = new Scanner(System.in);
@@ -112,24 +116,27 @@ public class Etudiant {
 
     public boolean isSucces(){
         int notePassage = 60;
-        return m_note >= notePassage;
+        return this.note >= notePassage;
     }
 
-    public char noteLitterale(){
-        return  m_note >= 80 && m_note <= 100 ? 'A' :
-                m_note >= 60 && m_note <= 80  ? 'B' :
-                m_note >= 40 && m_note <= 60  ? 'C' : 'D';
+    public char noteLitterale() {
+        return  this.note >= 80 && this.note <= 100 ? 'A' :
+                this.note >= 60 && this.note <= 80  ? 'B' :
+                this.note >= 40 && this.note <= 60  ? 'C' : 'D';
     }
     
     public String toString(){
         return String.format("\n\n[code] %s\n[nom] %s\n[prénom] %s\n[année] %d\n[note] %d\n",
-                m_codePermanent,
-                m_nom,
-                m_prenom,
-                m_anneeNaissance,
-                m_note);
+                this.codePermanent,
+                this.nom,
+                this.prenom,
+                this.anneeNaissance,
+                this.note);
     }
-
+    @Override
+    public void facturer() {
+        this.montant = MONTANT;
+    }
     /* =============================================================
      *                       Point de test
      * ============================================================== */
