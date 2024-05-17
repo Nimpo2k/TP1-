@@ -1,22 +1,24 @@
 import java.util.function.Function;
+import javax.swing.JOptionPane;
 
 public class Menu extends Entree {
     /* =============================================================
      *                       méthode
      * ============================================================== */
     public static void afficherMenu() {
-        System.out.print("\n\n------MENU------\n\n");
-        System.out.print("1. Inscrire\n");
-        System.out.print("2. Lister\n");
-        System.out.print("3. Statistiques\n");
-        System.out.print("4.Quitter\n");
+        String menu = "------MENU------\n\n" +
+                      "1. Inscrire\n" +
+                      "2. Lister\n" +
+                      "3. Statistiques\n" +
+                      "4. Quitter\n";
+        JOptionPane.showMessageDialog(null, menu, "Menu", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public static selection saisirChoixUtilisateurSelection() {
         int choix = entree("choix: ", Integer::valueOf);
 
         while (!ChoixValide(choix)) {
-            System.out.print("[ERREUR] Votre selection n'est pas bonne. Veuillez entrer un nombre entre 1 et 4.\n");
+            JOptionPane.showMessageDialog(null,"[ERREUR] Votre selection n'est pas bonne. Veuillez entrer un nombre entre 1 et 4.", "Erreur", JOptionPane.ERROR_MESSAGE);
             choix = entree("choix: ", Integer::valueOf);
         }
 
@@ -27,7 +29,7 @@ public class Menu extends Entree {
         int choix = entree("choix: ", Integer::valueOf);
 
         while (!ChoixValide(choix)) {
-            System.out.print("[ERREUR] Votre selection n'est pas bonne. Veuillez entrer un nombre entre 1 et 4.\n");
+            JOptionPane.showMessageDialog(null, "[ERREUR] Votre selection n'est pas bonne. Veuillez entrer un nombre entre 1 et 4.", "Erreur", JOptionPane.ERROR_MESSAGE);
             choix = entree("choix: ", Integer::valueOf);
         }
 
@@ -46,7 +48,7 @@ public class Menu extends Entree {
                 yield true;
             }
             case Lister -> {
-                System.out.print(grp.toString());
+                JOptionPane.showMessageDialog(null, grp.toString(), "Liste des étudiants", JOptionPane.INFORMATION_MESSAGE);
                 yield true;
             }
             case Statistiques -> {
@@ -54,7 +56,7 @@ public class Menu extends Entree {
                 yield true;
             }
             case Quitter -> {
-                System.out.println("Vous avez quittez le menu!");
+                JOptionPane.showMessageDialog(null, "Vous avez quittez le menu!", "Quitter", JOptionPane.INFORMATION_MESSAGE);
                 yield false;
             }
         };
@@ -105,11 +107,15 @@ public class Menu extends Entree {
 
     private static void afficherStatistique(Group grp)
     {
-        System.out.printf("\nLa moyenne du group est de %.2f\n", grp.moyenne());
-        System.out.printf("Le taux de succes dans ce groupe est de %.2f\n", grp.tauxSucces());
-        System.out.printf("La meilleur note de cette class est de %.2f\n", grp.meilleur());
-        System.out.printf("La variance de ce groupe est de %.2f\n", grp.variance());
-        System.out.printf("L'ecrate type de ce groupe est de %.2f\n", grp.ecartType());
+        String statistiques = String.format(
+            "La moyenne du groupe est de %.2f\n" +
+            "Le taux de succès dans ce groupe est de %.2f\n" +
+            "La meilleure note de cette classe est de %.2f\n" +
+            "La variance de ce groupe est de %.2f\n" +
+            "L'écart type de ce groupe est de %.2f\n",
+            grp.moyenne(), grp.tauxSucces(), grp.meilleur(), grp.variance(), grp.ecartType()
+        );
+        JOptionPane.showMessageDialog(null, statistiques, "Statistiques", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /* =============================================================

@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 // Fait par mohammed Anas Belilita
 //Bonus 1 et tests/bugs fait par Riad
 public class Group {
@@ -36,7 +38,7 @@ public class Group {
             this.etudiantsRegulier[this.nbrEtudiants] = unEtudiant;
             this.nbrEtudiants++;
         } catch (IllegalAccessException e){
-            System.out.printf("[Erreur] %s\n", e.getMessage());
+            JOptionPane.showMessageDialog(null, "[Erreur] " + e.getMessage());
         }
     }
 
@@ -58,7 +60,7 @@ public class Group {
             // retourne la moyenne du groupe
             return sum / this.nbrEtudiants;
         }catch (IllegalAccessException e) {
-            System.out.printf("[Erreur] %s\n", e.getMessage());
+            JOptionPane.showMessageDialog(null, "[Erreur] " + e.getMessage());
         }
         return 0;
     }
@@ -78,7 +80,7 @@ public class Group {
             // retourne le  taux de succès du groupe
             return (double) nbrEtudiantReussi / this.nbrEtudiants;
         } catch(IllegalAccessException e) {
-            System.out.printf("[Erreur] %s\n", e.getMessage());
+            JOptionPane.showMessageDialog(null, "[Erreur] " + e.getMessage());
         }
         return 0;
     }
@@ -115,7 +117,7 @@ public class Group {
             //  Calcul de la variance
             return sum / this.nbrEtudiants;
         } catch (IllegalAccessException e) {
-            System.out.printf("[Erreur] %s\n", e.getMessage());
+            JOptionPane.showMessageDialog(null, "[Erreur] " + e.getMessage());
         }
         return 0;
     }
@@ -150,15 +152,15 @@ public class Group {
         grp.ajouterEtudiant(etudiant2);
         grp.ajouterEtudiant(etudiant3);
 
-        System.out.printf("[nbrGroupe] %d\n", grp.getNbrGroupe());
-        System.out.printf("[nbrEtudiants] %d\n", grp.getNbrEtudiants());
-        System.out.printf("[etudiants] %s \n", grp.toString());
+        JOptionPane.showMessageDialog(null, "[nbrGroupe] " + grp.getNbrGroupe());
+        JOptionPane.showMessageDialog(null, "[nbrEtudiants] " + grp.getNbrEtudiants());
+        JOptionPane.showMessageDialog(null, "[etudiants] " + grp.toString());
 
-        System.out.printf("[moyenne]   \nLa moyenne du group est de %.2f\n\n", grp.moyenne());
-        System.out.printf("[tauxSucces]\nLe taux de succes dans ce groupe est de %.2f\n\n", grp.tauxSucces());
-        System.out.printf("[meilleur]  \nLa meilleur note de cette class est de %.2f\n\n", grp.meilleur());
-        System.out.printf("[variance]  \nLa variance de ce groupe est de %.2f\n\n", grp.variance());
-        System.out.printf("[ecartType] \nL'ecrate type de ce groupe est de %.2f\n\n", grp.ecartType());
+        JOptionPane.showMessageDialog(null, "[moyenne] La moyenne du group est de" + grp.moyenne());
+        JOptionPane.showMessageDialog(null,"[tauxSucces] Le taux de succes dans ce groupe est d" + grp.tauxSucces());
+        JOptionPane.showMessageDialog(null, "[meilleur]  La meilleur note de cette class est de" + grp.meilleur());
+        JOptionPane.showMessageDialog(null, "[variance]  La variance de ce groupe est de" + grp.variance());
+        JOptionPane.showMessageDialog(null, "[ecartType] L'ecrate type de ce groupe est de" + grp.ecartType());
 
     }
 }
